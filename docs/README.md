@@ -8,7 +8,7 @@ description: >-
 
 ![](.gitbook/assets/loop-2x%20%281%29.png)
 
-## Verge - Store
+## Verge - Store hoge
 
 {% hint style="danger" %}
 Verge 7.0 is still in development. API and the concept of Verge might be changed a bit.
@@ -25,12 +25,12 @@ To be more Swift's Style on the writing code.
 
 The characteristics are
 
-* **Creates one or more Dispatcher. \(Single store, multiple dispatcher\)**
-* **A dispatcher can have dependencies service needs. \(e.g. API Client, DB\)**
-* **No switch-case to handle Mutation and Action**
-* **Emits any events that isolated from State It's for SwiftUI's onReceive\(:\)**
-* **Supports Logging \(Commit, Action, Performance monitoring\)**
-* **Supports binding with Combine and RxSwift**
+- **Creates one or more Dispatcher. \(Single store, multiple dispatcher\)**
+- **A dispatcher can have dependencies service needs. \(e.g. API Client, DB\)**
+- **No switch-case to handle Mutation and Action**
+- **Emits any events that isolated from State It's for SwiftUI's onReceive\(:\)**
+- **Supports Logging \(Commit, Action, Performance monitoring\)**
+- **Supports binding with Combine and RxSwift**
 
 ## Prepare moving to SwiftUI from now with Verge
 
@@ -56,27 +56,27 @@ enum Activity {
 }
 
 final class MyStore: StoreBase<State, Activity> {
-  
+
   init() {
     super.init(initialState: .init(), logger: DefaultStoreLogger.shared)
   }
-  
+
   func increment() {
     commit {
       $0.count += 0
     }
   }
-  
+
   func delayedIncrement() {
     dispatch { context in
       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         context.redirect { $0.increment() }
-        
+
         context.send(.happen)
       }
     }
   }
-  
+
 }
 ```
 
@@ -102,7 +102,7 @@ let count = store.state.count
 // Using combine
 store.makeGetter()
   .sink { state in
-        
+
 }
 
 // or Using RxSwift
@@ -110,7 +110,7 @@ store.makeGetter()
 import VergeRx
 store.rx.makeGetter()
   .bind { state in
-        
+
 }
 ```
 
@@ -118,9 +118,9 @@ store.rx.makeGetter()
 
 ```swift
 struct MyView: View {
-  
+
   @EnvironmentObject var store: MyStore
-  
+
   var body: some View {
     Group {
       Text(store.state.count.description)
@@ -150,11 +150,6 @@ Most important thing in using state-tree is **Normalization.**
 
 {% page-ref page="docs-verge-orm/core-concepts.md" %}
 
-
-
 ## Concept from...
 
 {% embed url="https://medium.com/eureka-engineering/thought-about-arch-for-swiftui-1b0496d8094" %}
-
-
-
